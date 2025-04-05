@@ -1,0 +1,13 @@
+streamlit
+tensorflow
+pillow
+numpy
+pandas
+scikit-learn
+chromadb
+openai
+clip-by-openai
+matplotlib
+google-generativeai
+torch==1.7.1
+clip-by-openai==0.1.1.5
