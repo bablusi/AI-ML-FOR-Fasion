@@ -1,3 +1,8 @@
+import asyncio
+import sys
+if sys.platform.startswith('win'):
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
 import streamlit as st
 import numpy as np
 import PIL.Image
@@ -158,10 +163,12 @@ if st.button("Generate Styling Ideas"):
 
         if uploaded_file is not None:
             uploaded_image = np.array(PIL.Image.open(uploaded_file))
-            retrieved_imgs = image_vdb.query(query_images=[uploaded_image], include=['data'], n_results=3)
+            retrieved_imgs = image_vdb.query(query_texts=[query], n_results=3)
 
-            for i, img_data in enumerate(retrieved_imgs['data'][0]):
-                img = open_image(img_data)
+            for i, img_data in enumerate(retrieved_imgs['documents'][0]):
+                img_url = img_data
+                response = requests.get(img_url)
+                img = PIL.Image.open(io.BytesIO(response.content))
                 st.image(img, caption=f"Image {i+1}")
                 model = genai.GenerativeModel(model_name="gemini-1.5-pro")
                 response = model.generate_content(["Generate styling advice.", img])
