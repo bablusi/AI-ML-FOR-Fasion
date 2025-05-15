@@ -7,7 +7,7 @@ dataset_folder = r'D:\fasion\Data'
 
 # Check if the dataset folder exists
 if not os.path.exists(dataset_folder):
-    raise FileNotFoundError(f"❌ Folder not found: {dataset_folder}")
+    raise FileNotFoundError(f" Folder not found: {dataset_folder}")
 
 # Initialize the ChromaDB persistent client to store image vectors
 chroma_client = chromadb.PersistentClient(path="Vector_Database")
@@ -44,9 +44,9 @@ try:
     # Add the images to the vector database with metadata
     if ids and documents:
         image_vdb.add(ids=ids, documents=documents, metadatas=metadatas)
-        print("✅ Images have been successfully stored to the Vector database with metadata.")
+        print(" Images have been successfully stored to the Vector database with metadata.")
     else:
-        print("⚠️ No PNG images found in the folder.")
+        print(" No PNG images found in the folder.")
         
 except Exception as e:
-    print(f"❌ An error occurred: {e}")
+    print(f" An error occurred: {e}")
